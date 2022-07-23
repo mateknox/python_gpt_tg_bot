@@ -23,8 +23,8 @@ def update():
         if user_text.split(" ")[0] == "/start":
             msg = "Привет! Для поиска фильма доступны следующие команды: /kp, /google, /imdb и /genre" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
-                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных " \
-                  "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
+                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 6 случайных " \
+                  "фильмов в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
                   "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
                   "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
                   "sci-fi, short, sport, talk-show, thriller, war, western. " + "\n" + \
@@ -36,8 +36,8 @@ def update():
         elif user_text.split(" ")[0] == "/help":
             msg = "Для поиска фильма доступны следующие команды: /kp, /google, /imdb и /genre" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
-                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных " \
-                  "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
+                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 6 случайных " \
+                  "фильмов в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
                   "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
                   "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
                   "sci-fi, short, sport, talk-show, thriller, war, western. "  + "\n" + \
@@ -99,8 +99,8 @@ def update():
             msg = main(source, description)
             logging.info("Got info from omdb:")
             random.shuffle(msg)
-            logging.info(msg[0:3])
-            for elem in msg[0:3]:
+            logging.info(msg[0:6])
+            for elem in msg[0:6]:
                 elem = elem.split("/")[2]
                 elem_info = sources.get_info_from_omdb(elem)
                 if ("title" and "image") in elem_info:
