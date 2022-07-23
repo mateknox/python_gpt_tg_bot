@@ -21,9 +21,10 @@ def update():
         chat_id = request.json["message"]["from"]["id"]
         # Response for start message
         if user_text.split(" ")[0] == "/start":
-            msg = "Привет! Для поиска фильма доступы 3 команды: /kp, /google или /imdb" + "\n" + \
+            msg = "Привет! Для поиска фильма доступы следующие команды: /kp, /google, /imdb и /genre" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
-                  "с google можно искать что угодно, но вернутся 5 первых результатов. " \
+                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных" \
+                  "фильма в заданном жанре из списка топ фильмов в данном жанре" + "\n" + \
                   "Итоговый формат команд: /источник описание. Для повторного вызова списка " \
                   "команд напиши /help или /start."
             send_message(chat_id, msg)
@@ -32,7 +33,8 @@ def update():
         elif user_text.split(" ")[0] == "/help":
             msg = "Для поиска фильма доступы 3 команды: /kp, /google или /imdb" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
-                  "с google можно искать что угодно, но вернутся 5 первых результатов. " \
+                  "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных" \
+                  "фильма в заданном жанре из списка топ фильмов в данном жанре." \
                   "Итоговый формат команд: /источник описание."
             send_message(chat_id, msg)
 
@@ -105,7 +107,7 @@ def update():
                     send_message(chat_id, final_msg)
 
         # unknown message
-        elif ("/start" or "/help" or "/kp" or "/google" or "/imdb") not in user_text:
+        elif ("/start" or "/help" or "/kp" or "/google" or "/imdb" or "/genre") not in user_text:
             logging.info(user_text)
             msg = "Неизвестная команда, напиши /help для получения списка доступных"
             send_message(chat_id, msg)
