@@ -24,7 +24,10 @@ def update():
             msg = "Привет! Для поиска фильма доступны следующие команды: /kp, /google, /imdb и /genre" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
                   "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных " \
-                  "фильма в заданном жанре из списка топ фильмов в данном жанре. " + "\n" + \
+                  "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
+                  "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
+                  "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
+                  "sci-fi, short, sport, talk-show, thriller, war, western. " + "\n" + \
                   "Итоговый формат команд: /источник описание. Для повторного вызова списка " \
                   "команд напиши /help или /start."
             send_message(chat_id, msg)
@@ -34,7 +37,10 @@ def update():
             msg = "Для поиска фильма доступны следующие команды: /kp, /google, /imdb и /genre" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
                   "с google можно искать что угодно, но вернутся 5 первых результатов. Genre возвращает 3 случайных " \
-                  "фильма в заданном жанре из списка топ фильмов в данном жанре. " \
+                  "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
+                  "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
+                  "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
+                  "sci-fi, short, sport, talk-show, thriller, war, western. "  + "\n" + \
                   "Итоговый формат команд: /источник описание."
             send_message(chat_id, msg)
 
