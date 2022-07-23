@@ -27,7 +27,7 @@ def update():
                   "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
                   "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
                   "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
-                  "sci-fi, short, sport, talk-show, thriller, war, western. " + "\n" + \
+                  "sci-fi, short, sport, talk-show, thriller, war, western. Можно написать more для повторения. " + "\n" + \
                   "Итоговый формат команд: /источник описание. Для повторного вызова списка " \
                   "команд напиши /help или /start."
             send_message(chat_id, msg)
@@ -40,7 +40,7 @@ def update():
                   "фильма в заданном жанре из списка топ фильмов в данном жанре. Список жанров: " \
                   "action, adventure, animation, biography, comedy, crime, documentary, drama, family, fantasy, " \
                   "film-noir, game-show, history, horror, music, musical, mystery, news, reality-tv, romance, " \
-                  "sci-fi, short, sport, talk-show, thriller, war, western. "  + "\n" + \
+                  "sci-fi, short, sport, talk-show, thriller, war, western. Можно написать more для повторения. " + "\n" + \
                   "Итоговый формат команд: /источник описание."
             send_message(chat_id, msg)
 
@@ -93,7 +93,7 @@ def update():
                     final_msg = "Фильм: " + elem["title"] + "\n" + "Описание отсутствует" + "\n"
                     send_message(chat_id, final_msg)
 
-        elif user_text.split(" ")[0] == "/genre":
+        elif user_text.split(" ")[0] == "/genre" or user_text.split(" ")[0] == "more" or user_text.split(" ")[0] == "More":
             source = "Omdb"
             description = user_text[user_text.find(" "):].lstrip()
             msg = main(source, description)
