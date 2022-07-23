@@ -5,6 +5,7 @@ import logging
 import requests
 import config
 import json
+import random
 
 TelegramBot = telepot.Bot(config.TOKEN)
 app = Flask(__name__)
@@ -19,7 +20,7 @@ def update():
         user_text = request.json["message"]["text"]
         chat_id = request.json["message"]["from"]["id"]
         # Response for start message
-        if user_text == "/start":
+        if user_text.split(" ")[0] == "/start":
             msg = "Привет! Для поиска фильма доступы 3 команды: /kp, /google или /imdb" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
                   "с google можно искать что угодно, но вернутся 5 первых результатов. " \
@@ -28,7 +29,7 @@ def update():
             send_message(chat_id, msg)
 
         # Response for help message
-        elif user_text == "/help":
+        elif user_text.split(" ")[0] == "/help":
             msg = "Для поиска фильма доступы 3 команды: /kp, /google или /imdb" + "\n" + \
                   "В случае с kp и imdb для поиска используются ключевые слова из описания фильма, " \
                   "с google можно искать что угодно, но вернутся 5 первых результатов. " \
@@ -36,7 +37,7 @@ def update():
             send_message(chat_id, msg)
 
         # Response for main messages
-        elif "/kp" in user_text:
+        elif user_text.split(" ")[0] == "/kp":
             source = "Kinopoisk"
             description = user_text[user_text.find(" "):].lstrip()
             msg = main(source, description)
@@ -52,7 +53,7 @@ def update():
                     final_msg = "Фильм: " + elem["nameRu"] + "\n" + "Описание отсутствует" + "\n"
                     send_message(chat_id, final_msg)
 
-        elif "/google" in user_text:
+        elif user_text.split(" ")[0] == "/google":
             source = "Google"
             description = user_text[user_text.find(" "):].lstrip()
             msg = main(source, description)
@@ -68,7 +69,7 @@ def update():
                     final_msg = "Ссылка: " + elem["link"] + "\n"
                     send_message(chat_id, final_msg)
 
-        elif "/imdb" in user_text:
+        elif user_text.split(" ")[0] == "/imdb":
             source = "Imdb"
             description = user_text[user_text.find(" "):].lstrip()
             msg = main(source, description)
@@ -82,6 +83,25 @@ def update():
                 # if there is no description
                 elif "title" in elem:
                     final_msg = "Фильм: " + elem["title"] + "\n" + "Описание отсутствует" + "\n"
+                    send_message(chat_id, final_msg)
+
+        elif user_text.split(" ")[0] == "/genre":
+            source = "Omdb"
+            description = user_text[user_text.find(" "):].lstrip()
+            msg = main(source, description)
+            logging.info("Got info from omdb:")
+            random.shuffle(msg)
+            logging.info(msg[0:3])
+            for elem in msg[0:3]:
+                elem = elem.split("/")[2]
+                elem_info = sources.get_info_from_omdb(elem)
+                if ("title" and "image") in elem_info:
+                    final_msg = "Фильм: " + elem_info["title"] + "\n" + "Постер: " + elem_info[
+                        "image"]["url"] + "\n"
+                    send_message(chat_id, final_msg)
+                # if there is no description
+                elif "title" in elem:
+                    final_msg = "Фильм: " + elem["title"] + "\n" + "Постер отсутствует" + "\n"
                     send_message(chat_id, final_msg)
 
         # unknown message
@@ -136,6 +156,8 @@ def main(source, desc):
         return sources.get_info_from_google(desc=desc)
     if source == "Imdb":
         return sources.get_info_from_imdb(desc=desc)
+    if source == "Omdb":
+        return sources.get_info_from_omdb(desc=desc)
 
 
 if __name__ == '__main__':

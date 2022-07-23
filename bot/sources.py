@@ -32,3 +32,29 @@ def get_info_from_imdb(desc):
     r = requests.get(url=get_string, headers=headers)
     json_films = json.loads(r.text)
     return json_films
+
+
+def get_titles_from_omdb(desc):
+    # insert your api-key to url
+    get_string = "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre"
+    headers = {
+        "X-RapidAPI-Key": "<YOUR_API_KEY>",
+        "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
+    }
+    query = {"genre": desc, "limit": "100"}
+    r = requests.get(url=get_string, headers=headers, params=query)
+    json_films = json.loads(r.text)
+    return json_films
+
+
+def get_info_from_omdb(title):
+    # insert your api-key to url
+    get_string = "https://online-movie-database.p.rapidapi.com/title/get-details"
+    headers = {
+        "X-RapidAPI-Key": "<YOUR_API_KEY>",
+        "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
+    }
+    query = {"tconst": title}
+    r = requests.get(url=get_string, headers=headers, params=query)
+    json_films = json.loads(r.text)
+    return json_films
