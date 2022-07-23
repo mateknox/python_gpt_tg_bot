@@ -8,4 +8,4 @@ To run it you need to provide your bot token (config.py) and api's keys (sources
  - **/kp** - sends back film + description based on keywords.
  - **/imdb** - sends back film + description based on keywords.
  - **/google** - sends back link + description based on description.
- 
+ - **/genre** - sends back film + poster based on genre.
