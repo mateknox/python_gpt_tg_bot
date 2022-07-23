@@ -159,7 +159,7 @@ def main(source, desc):
     if source == "Imdb":
         return sources.get_info_from_imdb(desc=desc)
     if source == "Omdb":
-        return sources.get_info_from_omdb(desc=desc)
+        return sources.get_titles_from_omdb(desc=desc)
 
 
 if __name__ == '__main__':
