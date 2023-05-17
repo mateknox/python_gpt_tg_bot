@@ -7,37 +7,37 @@ if __name__ == '__main__':
     # for elem in x['films']:
     #     try:
     #         if elem["nameRu"] and elem["description"]:
-    #             print("Фильм: " + elem["nameRu"])
-    #             print("Описание: " + elem["description"] + "\n")
+    #             print("Film: " + elem["nameRu"])
+    #             print("Description: " + elem["description"] + "\n")
     #     except:
     #         if elem["nameRu"]:
-    #             print("Фильм: " + elem["nameRu"])
-    #             print("Описание отсутствует" + "\n")
+    #             print("Film: " + elem["nameRu"])
+    #             print("There is no description" + "\n")
 
     # # Google test
     # y = main.main(source="Google", desc="Фильм про девушку, которая меняет цвет волос")
     # for elem in y['results'][0:5]:
     #     try:
     #         if elem["title"] and elem["link"] and elem["description"]:
-    #             print("Название страницы: " + elem["title"])
-    #             print("Описание: " + elem["description"])
-    #             print("Ссылка: " + elem["link"] + "\n")
+    #             print("Page: " + elem["title"])
+    #             print("Description: " + elem["description"])
+    #             print("Link: " + elem["link"] + "\n")
     #     except:
     #         if elem["link"]:
-    #             print("Ссылка: " + elem["link"] + "\n")
+    #             print("Link: " + elem["link"] + "\n")
 
     # Imdb test
     # z = main.main(source="Imdb", desc="Blue haired girl")
     # for elem in z['results']:
     #     try:
     #         if elem["title"] and elem["description"] and elem["image"]:
-    #             print("Фильм: " + elem["title"])
-    #             print("Постер: " + elem["image"])
-    #             print("Описание: " + elem["description"] + "\n")
+    #             print("Film: " + elem["title"])
+    #             print("Poster: " + elem["image"])
+    #             print("Description: " + elem["description"] + "\n")
     #     except:
     #         if elem["title"]:
-    #             print("Фильм: " + elem["nameRu"])
-    #             print("Описание отсутствует" + "\n")
+    #             print("Film: " + elem["nameRu"])
+    #             print("There is no description" + "\n")
 
 
     # Omdb test
@@ -48,10 +48,10 @@ if __name__ == '__main__':
         elem_info = sources.get_info_from_omdb(elem)
         try:
             if elem_info["title"] and elem_info["image"]["url"]:
-                print("Фильм: " + elem_info["title"])
-                print("Постер: " + elem_info["image"]["url"] + "\n")
+                print("Film: " + elem_info["title"])
+                print("Poster: " + elem_info["image"]["url"] + "\n")
         except:
             if elem_info["title"]:
-                print("Фильм: " + elem_info["title"])
-                print("Постер отсутствует" + "\n")
+                print("Film: " + elem_info["title"])
+                print("There is no poster" + "\n")
 

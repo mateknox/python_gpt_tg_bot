@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 def get_info_from_kp(desc):
     get_string = "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=" + desc
     # insert your api-key
@@ -9,7 +8,6 @@ def get_info_from_kp(desc):
     r = requests.get(url=get_string, headers=headers)
     json_films = json.loads(r.text)
     return json_films
-
 
 def get_info_from_google(desc):
     get_string = "https://google-search3.p.rapidapi.com/api/v1/search/q=" + desc
@@ -24,7 +22,6 @@ def get_info_from_google(desc):
     google_response = json.loads(r.text)
     return google_response
 
-
 def get_info_from_imdb(desc):
     # insert your api-key to url
     get_string = "https://imdb-api.com/en/API/Search/<YOUR_API_KEY>/" + desc
@@ -32,7 +29,6 @@ def get_info_from_imdb(desc):
     r = requests.get(url=get_string, headers=headers)
     json_films = json.loads(r.text)
     return json_films
-
 
 def get_titles_from_omdb(desc):
     # insert your api-key to url
@@ -45,7 +41,6 @@ def get_titles_from_omdb(desc):
     r = requests.get(url=get_string, headers=headers, params=query)
     json_films = json.loads(r.text)
     return json_films
-
 
 def get_info_from_omdb(title):
     # insert your api-key to url
