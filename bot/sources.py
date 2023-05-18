@@ -1,6 +1,8 @@
 import requests
 import json
 import config
+import openai
+import logging
 
 
 def get_info_from_kp(desc):
@@ -59,3 +61,15 @@ def get_info_from_omdb(title):
     r = requests.get(url=get_string, headers=headers, params=query)
     json_films = json.loads(r.text)
     return json_films
+
+
+def get_info_from_gpt(message):
+    openai.api_key = config.GPT_TOKEN
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": message}
+        ]
+    )
+    logging.info(f"GPT answer: {completion.choices[0].message}")
+    return completion.choices[0].message.content
