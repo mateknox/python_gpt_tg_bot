@@ -71,5 +71,4 @@ def get_info_from_gpt(message):
             {"role": "user", "content": message}
         ]
     )
-    logging.info(f"GPT answer: {completion.choices[0].message}")
     return completion.choices[0].message.content

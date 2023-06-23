@@ -23,13 +23,13 @@ def omdb_message(message):
     logging.info(f"Got an omdb msg: ${message}")
     description = message.text[message.text.find(" "):].lstrip()
     msg = sources.get_titles_from_omdb(description)
-    logging.info("Got info from omdb:")
     random.shuffle(msg)
-    logging.info(msg[0:6])
+    logging.info(f"Got titles from omdb: ${msg[0:6]}")
     final_msg = 'No info found'
     for elem in msg[0:6]:
         elem = elem.split("/")[2]
         elem_info = sources.get_info_from_omdb(elem)
+        logging.info(f"Film info from omdb: ${elem_info}")
         if ("title" and "image") in elem_info:
             final_msg = "Film: " + elem_info["title"] + "\n" + "Poster: " + elem_info["image"]["url"] + "\n"
         # if there is no description
