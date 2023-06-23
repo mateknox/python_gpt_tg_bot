@@ -22,7 +22,7 @@ def start_message(message):
 def omdb_message(message):
     logging.info(f"Got an omdb msg: ${message}")
     description = message.text[message.text.find(" "):].lstrip()
-    msg = sources.get_info_from_omdb(description)
+    msg = sources.get_titles_from_omdb(description)
     logging.info("Got info from omdb:")
     random.shuffle(msg)
     logging.info(msg[0:6])
@@ -35,7 +35,7 @@ def omdb_message(message):
         # if there is no description
         elif "title" in elem:
             final_msg = "Film: " + elem["title"] + "\n" + "There is no poster" + "\n"
-    bot.send_message(message.chat.id, final_msg, parse_mode='Markdown')
+        bot.send_message(message.chat.id, final_msg, parse_mode='Markdown')
 
 
 @bot.message_handler(commands=['gpt'])
