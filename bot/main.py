@@ -55,7 +55,7 @@ def gpt_inline_message(inline_query):
         gpt_info = gpt_method(description)
         r = types.InlineQueryResultArticle('1', 'Gpt result', types.InputTextMessageContent(f"Query: {description} \n"
                                                                                             + f"Answer: {gpt_info}"))
-        bot.answer_inline_query(inline_query.id, [r], 60)
+        bot.answer_inline_query(inline_query.id, [r], cache_time=300)
     except Exception as e:
         logging.error(f"Exception: {e}")
 
@@ -67,4 +67,4 @@ def gpt_method(description):
 
 
 if __name__ == '__main__':
-    bot.polling(True)
+    bot.polling(True, interval=1)
