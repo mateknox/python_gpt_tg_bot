@@ -3,13 +3,14 @@ import telebot
 import logging
 import config
 import random
+from telebot import types
 
 bot = telebot.TeleBot(config.TOKEN)
 
 
 @bot.message_handler(commands=['start', 'help'])
 def start_message(message):
-    logging.info(f"Got a start msg: ${message}")
+    logging.info(f"Got start msg: ${message}")
     msg = "Available commands: \n" \
           "/genre Film genre \n" \
           "/gpt Anything \n" \
@@ -20,7 +21,7 @@ def start_message(message):
 
 @bot.message_handler(commands=['genre'])
 def omdb_message(message):
-    logging.info(f"Got an omdb msg: ${message}")
+    logging.info(f"Got omdb msg: ${message}")
     description = message.text[message.text.find(" "):].lstrip()
     msg = sources.get_titles_from_omdb(description)
     random.shuffle(msg)
@@ -40,11 +41,28 @@ def omdb_message(message):
 
 @bot.message_handler(commands=['gpt'])
 def gpt_message(message):
-    logging.info(f"Got an gpt msg: ${message}")
+    logging.info(f"Got gpt query: ${message}")
     description = message.text[message.text.find(" "):].lstrip()
+    gpt_info = gpt_method(description)
+    bot.send_message(message.chat.id, gpt_info, parse_mode='Markdown')
+
+
+@bot.inline_handler(lambda query: '/gpt' in query.query)
+def gpt_inline_message(inline_query):
+    logging.info(f"Got gpt inline query: ${inline_query}")
+    description = inline_query.query[inline_query.query.find(" "):].lstrip()
+    try:
+        gpt_info = gpt_method(description)
+        r = types.InlineQueryResultArticle('1', 'Gpt result', types.InputTextMessageContent(gpt_info))
+        bot.answer_inline_query(inline_query.id, [r])
+    except Exception as e:
+        logging.error(f"Exception: ${e}")
+
+
+def gpt_method(description):
     msg = sources.get_info_from_gpt(description)
     logging.info(f"Got info from gpt: ${msg}")
-    bot.send_message(message.chat.id, msg, parse_mode='Markdown')
+    return msg
 
 
 if __name__ == '__main__':
