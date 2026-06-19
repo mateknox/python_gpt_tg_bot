@@ -86,7 +86,7 @@ def genre_handler(message):
 
     random.shuffle(raw_titles)
 
-    # Process matches safely safely avoiding array splitter assumptions
+    # Process matches safely avoiding array splitter assumptions
     sent_count = 0
     for structural_item in raw_titles:
         if sent_count >= 5:
@@ -124,7 +124,6 @@ def gpt_handler(message):
 
     ai_response = engine.ask_gemini(parts[1].strip())
 
-    # Use our new splitting logic here instead of direct bot.send_message
     send_split_message(message.chat.id, ai_response, parse_mode='Markdown')
 
 
